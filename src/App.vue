@@ -1,16 +1,16 @@
 <template>
   <HeaderComponent/>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <PlaygroundWrapperComponent/>
 </template>
 
 <script>
 import HeaderComponent from './components/HeaderComponent'
-import HelloWorld from './components/HelloWorld.vue'
+import PlaygroundWrapperComponent from './components/PlaygroundWrapperComponent'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    PlaygroundWrapperComponent,
     HeaderComponent
   }
 }
