@@ -22,10 +22,20 @@
 
 <script>
 import Multiselect from '@vueform/multiselect';
+import {useFilterStore} from "@/stores/filterStore";
+
+let filterStore;
 
 export default {
   components: {
     Multiselect,
+  },
+  setup() {
+    filterStore = useFilterStore();
+
+    return {
+      filterStore,
+    }
   },
   data() {
     return {
@@ -35,6 +45,11 @@ export default {
     }
   },
   watch: {
+    selectedFunctions: function () {
+      filterStore.$patch({
+        selectedFunctionsState: this.selectedFunctions
+      });
+    }
   },
   created() {
     this.initPlaygroundFunctions();

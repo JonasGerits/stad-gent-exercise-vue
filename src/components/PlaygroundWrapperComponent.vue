@@ -24,11 +24,21 @@ ul.playground-list {
 <script>
 import PlaygroundListItem from "@/components/PlaygroundListItem";
 import PlaygroundSearchComponent from "@/components/PlaygroundSearchComponent";
+import {useFilterStore} from "@/stores/filterStore";
+
+let filterStore;
 
 export default {
   components: {
     PlaygroundListItem,
     PlaygroundSearchComponent,
+  },
+  setup() {
+    filterStore = useFilterStore();
+
+    return {
+      filterStore,
+    }
   },
   data() {
     return {
@@ -37,7 +47,25 @@ export default {
       loading: false
     }
   },
-  watch: {},
+  computed: {
+    selectedFunctionsStore() {
+      return this.filterStore.selectedFunctionsState;
+    }
+  },
+  watch: {
+    selectedFunctionsStore: async function () {
+      this.loading = true;
+      try {
+        const res = await fetch(`https://data.stad.gent/api/v2/catalog/datasets/speelterreinen-gent/records?where=functies like "${this.filterStore.selectedFunctionsState.concat(", ")}"`)
+        const jsonRes = await res.json();
+        this.playgrounds = jsonRes.records;
+        this.loading = false;
+      } catch (error) {
+        this.loading = false;
+        this.error = 'Error! Could not reach the API. ' + error
+      }
+    },
+  },
   created() {
     this.initPlaygrounds();
     this.initPlaygroundFunctions();
@@ -50,7 +78,6 @@ export default {
         const jsonRes = await res.json();
         this.playgrounds = jsonRes.records;
         this.loading = false;
-        console.log(jsonRes);
       } catch (error) {
         this.loading = false;
         this.error = 'Error! Could not reach the API. ' + error
