@@ -1,14 +1,26 @@
 <template>
-  <PlaygroundSearchComponent></PlaygroundSearchComponent>
-  <p v-if="loading">Loading playgrounds...</p>
-  <div v-if="loading === false && playgrounds.length > 0">
-    <ul class="list-none p-0" v-for="playground in playgrounds" :key="playground.record.id">
-      <PlaygroundListItem v-bind:record="playground.record"></PlaygroundListItem>
-    </ul>
+  <div class="m-6">
+    <PlaygroundSearchComponent></PlaygroundSearchComponent>
+    <p v-if="loading">Loading playgrounds...</p>
+    <div v-if="loading === false && playgrounds.length > 0" class="flex border mt-6">
+      <div class="shadow min-w-fit">
+        <ul class="list-none p-0 overflow-auto playground-list">
+          <PlaygroundListItem v-for="playground in playgrounds" :key="playground.record.id" v-bind:record="playground.record"></PlaygroundListItem>
+        </ul>
+      </div>
+      <div class="col-span-2">
+          <h1>Dit is wat content</h1>
+      </div>
+    </div>
+    <p v-if="error">Oh no an error occured! :(</p>
   </div>
-  <p v-if="error">Oh no an error occured! :(</p>
 </template>
 
+<style>
+ul.playground-list {
+  max-height: calc(100vh - 200px);
+}
+</style>
 <script>
 import PlaygroundListItem from "@/components/PlaygroundListItem";
 import PlaygroundSearchComponent from "@/components/PlaygroundSearchComponent";

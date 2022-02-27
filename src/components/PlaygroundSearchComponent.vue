@@ -1,5 +1,4 @@
 <template>
-<div class="m-6">
   <div class="w-full md:w-80">
     <Multiselect
         v-model="selectedFunctions"
@@ -12,7 +11,6 @@
         :multipleLabel="getMultipleLabel"
     />
   </div>
-</div>
 </template>
 
 <style>
