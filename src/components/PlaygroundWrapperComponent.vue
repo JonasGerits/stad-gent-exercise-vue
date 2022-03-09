@@ -4,6 +4,9 @@
     <p v-if="loading">Loading playgrounds...</p>
     <div v-if="loading === false && playgrounds.length > 0" class="flex border mt-6">
       <div class="shadow min-w-fit">
+        <div class="p-3 flex font-bold text-xl">
+          <p>{{totalPlaygrounds}} resultaten gevonden</p>
+        </div>
         <ul class="list-none p-0 overflow-auto playground-list">
           <PlaygroundListItem v-for="playground in playgrounds" :key="playground.record.id" v-bind:record="playground.record"></PlaygroundListItem>
         </ul>
@@ -43,6 +46,7 @@ export default {
   data() {
     return {
       playgrounds: [],
+      totalPlaygrounds: 0,
       functions: [],
       loading: false
     }
@@ -58,6 +62,7 @@ export default {
       try {
         const res = await fetch(`https://data.stad.gent/api/v2/catalog/datasets/speelterreinen-gent/records?where=functies like "${this.filterStore.selectedFunctionsState.concat(", ")}"`)
         const jsonRes = await res.json();
+        this.totalPlaygrounds = jsonRes.total_count;
         this.playgrounds = jsonRes.records;
         this.loading = false;
       } catch (error) {
@@ -77,6 +82,7 @@ export default {
         const res = await fetch('https://data.stad.gent/api/v2/catalog/datasets/speelterreinen-gent/records')
         const jsonRes = await res.json();
         this.playgrounds = jsonRes.records;
+        this.totalPlaygrounds = jsonRes.total_count;
         this.loading = false;
       } catch (error) {
         this.loading = false;
