@@ -3,7 +3,7 @@
     <PlaygroundSearchComponent></PlaygroundSearchComponent>
     <div class="flex border mt-6">
       <PlaygroundList></PlaygroundList>
-      <div class="col-span-2">
+      <div class="col-span-2 w-full">
           <MapComponent />
       </div>
     </div>

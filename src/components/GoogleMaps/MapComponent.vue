@@ -1,27 +1,24 @@
 <template>
-  <div>
-    <div v-if="errorStr">
-      Sorry, but the following error
-      occurred: {{errorStr}}
-    </div>
-
-    <div v-if="gettingLocation">
-      <i>Getting your location...</i>
-    </div>
-
-    <div v-if="lng">
-      Your location data is {{ lat }}, {{ lng }}
-    </div>
-  </div>
+  <GoogleMap
+      api-key="AIzaSyDa2fYoG3eOYOwbBr6My6Frxc6TpZU8AuE"
+      style="width: 100%; height: 100%"
+      :center="position"
+      :zoom="15"
+  >
+    <Marker :options="{ position: position }" />
+  </GoogleMap>
 </template>
 <script>
+import { GoogleMap, Marker } from 'vue3-google-map'
+
+const GENT_COORDINATES = { lat: 51.053581, lng: 3.722969 };
+
 export default {
+  components: { GoogleMap, Marker },
   data() {
     return {
-      gettingLocation: false,
-      errorStr:null,
-      lng: 0,
-      lat: 0
+      errorStr: undefined,
+      position: GENT_COORDINATES,
     }
   },
   created() {
@@ -30,13 +27,9 @@ export default {
       return;
     }
 
-    this.gettingLocation = true;
     navigator.geolocation.getCurrentPosition(pos => {
-      this.gettingLocation = false;
-      this.lat = pos.coords.latitude;
-      this.lng = pos.coords.longitude;
+      this.position = { lat: pos.coords.latitude, lng: pos.coords.longitude};
     }, err => {
-      this.gettingLocation = false;
       this.errorStr = err.message;
     })
   }
