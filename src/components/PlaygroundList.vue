@@ -82,7 +82,7 @@ export default {
     },
     selectedFunctionsStore: async function () {
       this.loading = true;
-      this.page = 0;
+      this.page = 1;
       try {
         const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page));
         const jsonRes = await res.json();
