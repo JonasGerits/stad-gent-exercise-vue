@@ -37,8 +37,11 @@ import PlaygroundListItem from "@/components/PlaygroundListItem";
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import {useFilterStore} from "@/stores/filterStore";
+import {usePlaygroundStore} from "@/stores/playgroundStore";
+
 import * as PlaygroundQueryBuilderUtil from "@/utils/PlaygroundQueryBuilderUtil";
 
+let playgroundStore;
 let filterStore;
 
 export default {
@@ -48,9 +51,11 @@ export default {
   },
   setup() {
     filterStore = useFilterStore();
+    playgroundStore = usePlaygroundStore();
 
     return {
       filterStore,
+      playgroundStore
     }
   },
   data() {
@@ -74,6 +79,9 @@ export default {
         const jsonRes = await res.json();
         this.totalPlaygrounds = jsonRes.total_count;
         this.playgrounds = jsonRes.records;
+        playgroundStore.$patch({
+          playgrounds: this.playgrounds
+        });
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -88,6 +96,9 @@ export default {
         const jsonRes = await res.json();
         this.totalPlaygrounds = jsonRes.total_count;
         this.playgrounds = jsonRes.records;
+        playgroundStore.$patch({
+          playgrounds: this.playgrounds
+        });
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -106,6 +117,9 @@ export default {
         const jsonRes = await res.json();
         this.playgrounds = jsonRes.records;
         this.totalPlaygrounds = jsonRes.total_count;
+        playgroundStore.$patch({
+          playgrounds: this.playgrounds
+        });
         this.loading = false;
       } catch (error) {
         this.loading = false;

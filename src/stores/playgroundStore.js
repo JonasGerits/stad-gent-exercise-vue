@@ -1,9 +1,9 @@
 import {defineStore} from "pinia";
 
-export const useFilterStore = defineStore("main", {
+export const usePlaygroundStore = defineStore("playgrounds", {
    state: () =>  {
        return {
-           selectedFunctionsState: [],
+           playgrounds: [],
        }
    },
     getters: {
