@@ -26,7 +26,7 @@ export default {
   },
   props: ['record'],
   created() {
-    this.playgroundFunctions = this.record.fields.functies.split(',');
+    this.playgroundFunctions = this.record?.fields?.functies?.split(',');
   }
 }
 </script>
