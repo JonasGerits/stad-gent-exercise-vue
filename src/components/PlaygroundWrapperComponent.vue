@@ -4,7 +4,7 @@
     <div class="flex border mt-6">
       <PlaygroundList></PlaygroundList>
       <div class="col-span-2">
-          <h1>Dit is wat content</h1>
+          <MapComponent />
       </div>
     </div>
   </div>
@@ -14,11 +14,13 @@
 import PlaygroundSearchComponent from "@/components/PlaygroundSearchComponent";
 import {useFilterStore} from "@/stores/filterStore";
 import PlaygroundList from "@/components/PlaygroundList";
+import MapComponent from "@/components/GoogleMaps/MapComponent";
 
 let filterStore;
 
 export default {
   components: {
+    MapComponent,
     PlaygroundList,
     PlaygroundSearchComponent,
   },
