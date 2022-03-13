@@ -1,28 +1,40 @@
 <template>
-  <div class="w-full md:w-80">
-    <Multiselect
-        v-model="selectedFunctions"
-        :options="functions"
-        loading="loading"
-        :searchable="true"
-        mode="multiple"
-        placeholder="Kies een functie..."
-        :hideSelected="false"
-        :multipleLabel="getMultipleLabel"
-    />
+  <div class="flex w-full">
+    <div class="w-full md:w-80 mr-3">
+      <GMapAutocomplete
+          placeholder="Geef een adres in ... "
+          @place_changed="updateLocation"
+      >
+      </GMapAutocomplete>
+    </div>
+    <div class="w-full md:w-80">
+      <Multiselect
+          v-model="selectedFunctions"
+          :options="functions"
+          loading="loading"
+          :searchable="true"
+          mode="multiple"
+          placeholder="Kies een functie..."
+          :hideSelected="false"
+          :multipleLabel="getMultipleLabel"
+      />
+    </div>
   </div>
-  <GMapAutocomplete
-      placeholder="Geef een adres in ... "
-      @place_changed="updateLocation"
-  >
-  </GMapAutocomplete>
 </template>
 
 <style>
   div.multiselect-placeholder, div.multiselect-multiple-label {
     overflow: hidden;
     white-space: nowrap;
-}
+  }
+
+  input.pac-target-input {
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    border: var(--ms-border-width,1px) solid var(--ms-border-color,#d1d5db);
+    border-radius: var(--ms-radius,4px);
+  }
 </style>
 
 <script>
