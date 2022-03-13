@@ -31,8 +31,8 @@
 <script>
 import Multiselect from '@vueform/multiselect';
 import {useFilterStore} from "@/stores/filterStore";
-import LocationSearchComponent from "@/components/LocationSearchComponent";
-import RangeFilterComponent from "@/components/RangeFilterComponent";
+import LocationSearchComponent from "@/components/search/LocationSearchComponent";
+import RangeFilterComponent from "@/components/search/RangeFilterComponent";
 
 let filterStore;
 

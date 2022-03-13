@@ -1,14 +1,12 @@
 const BASE_URL = "https://data.stad.gent/api/v2/catalog/datasets/speelterreinen-gent/records?";
 
 export function getQuery(functions, page, geoLocation, rangeInKm) {
-    console.log('executing...');
-
     let query = BASE_URL;
+
     query = addFunctions(query, functions);
     query = addGeoLocation(query, functions, geoLocation, rangeInKm)
     query = addPagination(query, page);
 
-    console.log(query);
     return query;
 }
 

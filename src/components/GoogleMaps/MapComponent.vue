@@ -52,6 +52,11 @@ export default {
     }
   },
   watch: {
+    position: function () {
+      filterStore.$patch({
+        location: this.position
+      });
+    },
     playgroundStoreState: function () {
       this.markerPositions = [];
       this.playgroundStore.playgrounds.map(playground => {

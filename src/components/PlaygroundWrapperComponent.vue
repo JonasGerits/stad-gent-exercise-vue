@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import PlaygroundSearchComponent from "@/components/PlaygroundSearchComponent";
+import PlaygroundSearchComponent from "@/components/search/PlaygroundSearchComponent";
 import {useFilterStore} from "@/stores/filterStore";
 import PlaygroundList from "@/components/PlaygroundList";
 import MapComponent from "@/components/GoogleMaps/MapComponent";
