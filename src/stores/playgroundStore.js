@@ -4,6 +4,7 @@ export const usePlaygroundStore = defineStore("playgrounds", {
    state: () =>  {
        return {
            playgrounds: [],
+           selectedPlayground: {}
        }
    },
     getters: {
