@@ -3,7 +3,7 @@
     <div class="w-full md:w-80 mr-3">
       <LocationSearchComponent></LocationSearchComponent>
     </div>
-    <div class="w-full md:w-80">
+    <div class="w-full md:w-80 mr-3">
       <Multiselect
           v-model="selectedFunctions"
           :options="functions"
@@ -15,6 +15,18 @@
           :multipleLabel="getMultipleLabel"
       />
     </div>
+    <div class="w-full md:w-80">
+      <div class="flex justify-center items-center h-full w-full">
+        <vue3-slider v-model="rangeInKm"
+                     color="#374151"
+                     track-color="#dee2e6"
+                     :min="1"
+                     :max="15"
+                     :tooltip="true"
+                     :tooltipText="`${rangeInKm} km`"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,12 +35,27 @@
     overflow: hidden;
     white-space: nowrap;
   }
+  div.vue3-slider {
+    margin-right: 0.75rem;
+  }
+  div.vue3-slider div.tooltip {
+    display: flex !important;
+  }
+  div.vue3-slider div.handle {
+    transform: scale(1.35);
+    height: 12px;
+    width: 12px;
+    top: -3px;
+    background: white;
+    border: 1px solid #374151 !important;
+  }
 </style>
 
 <script>
 import Multiselect from '@vueform/multiselect';
 import {useFilterStore} from "@/stores/filterStore";
 import LocationSearchComponent from "@/components/LocationSearchComponent";
+import slider from "vue3-slider"
 
 let filterStore;
 
@@ -36,6 +63,7 @@ export default {
   components: {
     LocationSearchComponent,
     Multiselect,
+    "vue3-slider": slider
   },
   setup() {
     filterStore = useFilterStore();
@@ -48,7 +76,10 @@ export default {
     return {
       functions: [],
       selectedFunctions: [],
-      loading: false
+      loading: false,
+      rangeInKm: 5,
+      minRangeInKm: 1,
+      maxRangeInKm: 15
     }
   },
   watch: {
