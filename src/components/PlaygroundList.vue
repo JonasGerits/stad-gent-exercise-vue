@@ -1,10 +1,11 @@
 <template>
   <div class="shadow min-w-fit">
     <div class="p-3 flex font-bold text-xl shadow">
-      <p>{{totalPlaygrounds}} resultaten gevonden</p>
+      <p>{{ totalPlaygrounds }} resultaten gevonden</p>
     </div>
     <ul class="list-none p-0 overflow-auto playground-list">
-      <PlaygroundListItem v-for="playground in playgrounds" :key="playground.record.id" v-bind:record="playground.record"></PlaygroundListItem>
+      <PlaygroundListItem v-for="playground in playgrounds" :key="playground.record.id"
+                          v-bind:record="playground.record"></PlaygroundListItem>
     </ul>
     <div class="p-3 flex font-bold text-xl shadow w-full flex justify-center">
       <v-pagination

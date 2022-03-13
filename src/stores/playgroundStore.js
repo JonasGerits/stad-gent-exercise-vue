@@ -1,14 +1,12 @@
 import {defineStore} from "pinia";
 
 export const usePlaygroundStore = defineStore("playgrounds", {
-   state: () =>  {
-       return {
-           playgrounds: [],
-           selectedPlayground: {}
-       }
-   },
-    getters: {
+    state: () => {
+        return {
+            playgrounds: [],
+            selectedPlayground: {}
+        }
     },
-    actions: {
-    }
+    getters: {},
+    actions: {}
 });

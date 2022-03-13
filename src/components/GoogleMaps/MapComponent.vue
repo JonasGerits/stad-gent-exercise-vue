@@ -26,7 +26,7 @@ div.vue-map-container {
 import {usePlaygroundStore} from "@/stores/playgroundStore";
 import {useFilterStore} from "@/stores/filterStore";
 
-const GENT_COORDINATES = { lat: 51.053581, lng: 3.722969 };
+const GENT_COORDINATES = {lat: 51.053581, lng: 3.722969};
 let playgroundStore;
 let filterStore;
 
@@ -90,31 +90,31 @@ export default {
     },
   },
   created() {
-    if(!("geolocation" in navigator)) {
+    if (!("geolocation" in navigator)) {
       this.errorStr = 'Geolocation is not available.';
       return;
     }
     navigator.geolocation.getCurrentPosition(pos => {
-      this.position = { lat: pos.coords.latitude, lng: pos.coords.longitude};
+      this.position = {lat: pos.coords.latitude, lng: pos.coords.longitude};
     }, err => {
       this.errorStr = err.message;
     });
   },
   methods: {
     calculateZoom() {
-      if(this.rangeInKm === 1) {
+      if (this.rangeInKm === 1) {
         return 15;
       }
-      if(this.rangeInKm <= 2) {
+      if (this.rangeInKm <= 2) {
         return 14;
       }
-      if(this.rangeInKm <= 4) {
+      if (this.rangeInKm <= 4) {
         return 13;
       }
       if (this.rangeInKm <= 8) {
         return 12;
       }
-      if(this.rangeInKm <= 15) {
+      if (this.rangeInKm <= 15) {
         return 11;
       }
     }

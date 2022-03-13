@@ -7,13 +7,13 @@
 </template>
 
 <style>
-  input.pac-target-input {
-    width: 100%;
-    height: 100%;
-    padding: 8px;
-    border: var(--ms-border-width,1px) solid var(--ms-border-color,#d1d5db);
-    border-radius: var(--ms-radius,4px);
-  }
+input.pac-target-input {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  border: var(--ms-border-width, 1px) solid var(--ms-border-color, #d1d5db);
+  border-radius: var(--ms-radius, 4px);
+}
 </style>
 
 <script>

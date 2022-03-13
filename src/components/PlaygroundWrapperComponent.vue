@@ -4,7 +4,7 @@
     <div class="flex border mt-6">
       <PlaygroundList></PlaygroundList>
       <div class="col-span-2 w-full">
-          <MapComponent />
+        <MapComponent/>
       </div>
     </div>
   </div>
@@ -42,9 +42,7 @@ export default {
       return this.filterStore.selectedFunctionsState;
     }
   },
-  watch: {
-
-  },
+  watch: {},
   created() {
     this.initPlaygroundFunctions();
   },

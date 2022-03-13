@@ -15,9 +15,11 @@
 div.vue3-slider {
   margin-right: 0.75rem;
 }
+
 div.vue3-slider div.tooltip {
   display: flex !important;
 }
+
 div.vue3-slider div.handle {
   transform: scale(1.35);
   height: 12px;

@@ -22,10 +22,10 @@
 </template>
 
 <style>
-  div.multiselect-placeholder, div.multiselect-multiple-label {
-    overflow: hidden;
-    white-space: nowrap;
-  }
+div.multiselect-placeholder, div.multiselect-multiple-label {
+  overflow: hidden;
+  white-space: nowrap;
+}
 </style>
 
 <script>
