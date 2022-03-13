@@ -16,16 +16,7 @@
       />
     </div>
     <div class="w-full md:w-80">
-      <div class="flex justify-center items-center h-full w-full">
-        <vue3-slider v-model="rangeInKm"
-                     color="#374151"
-                     track-color="#dee2e6"
-                     :min="1"
-                     :max="15"
-                     :tooltip="true"
-                     :tooltipText="`${rangeInKm} km`"
-        />
-      </div>
+      <RangeFilterComponent/>
     </div>
   </div>
 </template>
@@ -35,35 +26,21 @@
     overflow: hidden;
     white-space: nowrap;
   }
-  div.vue3-slider {
-    margin-right: 0.75rem;
-  }
-  div.vue3-slider div.tooltip {
-    display: flex !important;
-  }
-  div.vue3-slider div.handle {
-    transform: scale(1.35);
-    height: 12px;
-    width: 12px;
-    top: -3px;
-    background: white;
-    border: 1px solid #374151 !important;
-  }
 </style>
 
 <script>
 import Multiselect from '@vueform/multiselect';
 import {useFilterStore} from "@/stores/filterStore";
 import LocationSearchComponent from "@/components/LocationSearchComponent";
-import slider from "vue3-slider"
+import RangeFilterComponent from "@/components/RangeFilterComponent";
 
 let filterStore;
 
 export default {
   components: {
+    RangeFilterComponent,
     LocationSearchComponent,
-    Multiselect,
-    "vue3-slider": slider
+    Multiselect
   },
   setup() {
     filterStore = useFilterStore();
