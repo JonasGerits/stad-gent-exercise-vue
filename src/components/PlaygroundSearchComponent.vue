@@ -1,11 +1,7 @@
 <template>
   <div class="flex w-full">
     <div class="w-full md:w-80 mr-3">
-      <GMapAutocomplete
-          placeholder="Geef een adres in ... "
-          @place_changed="updateLocation"
-      >
-      </GMapAutocomplete>
+      <LocationSearchComponent></LocationSearchComponent>
     </div>
     <div class="w-full md:w-80">
       <Multiselect
@@ -27,24 +23,18 @@
     overflow: hidden;
     white-space: nowrap;
   }
-
-  input.pac-target-input {
-    width: 100%;
-    height: 100%;
-    padding: 8px;
-    border: var(--ms-border-width,1px) solid var(--ms-border-color,#d1d5db);
-    border-radius: var(--ms-radius,4px);
-  }
 </style>
 
 <script>
 import Multiselect from '@vueform/multiselect';
 import {useFilterStore} from "@/stores/filterStore";
+import LocationSearchComponent from "@/components/LocationSearchComponent";
 
 let filterStore;
 
 export default {
   components: {
+    LocationSearchComponent,
     Multiselect,
   },
   setup() {
@@ -72,10 +62,6 @@ export default {
     this.initPlaygroundFunctions();
   },
   methods: {
-    updateLocation($event) {
-      console.log('addresss changed', $event?.geometry?.location.lat());
-      console.log('addresss changed', $event?.geometry?.location.lng());
-    },
     getMultipleLabel() {
       return `${this.selectedFunctions.length} geselecteerde ${this.selectedFunctions.length > 1 ? 'functies' : 'functie'}`
     },

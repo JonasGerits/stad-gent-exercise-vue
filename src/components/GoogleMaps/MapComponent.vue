@@ -19,18 +19,21 @@ div.vue-map-container {
 }
 </style>
 <script>
-
 import {usePlaygroundStore} from "@/stores/playgroundStore";
+import {useLocationStore} from "@/stores/locationStore";
 
 const GENT_COORDINATES = { lat: 51.053581, lng: 3.722969 };
 let playgroundStore;
+let locationStore;
 
 export default {
   setup() {
     playgroundStore = usePlaygroundStore();
+    locationStore = useLocationStore();
 
     return {
-      playgroundStore
+      playgroundStore,
+      locationStore
     }
   },
   data() {
@@ -43,6 +46,9 @@ export default {
   computed: {
     playgroundStoreState() {
       return this.playgroundStore.playgrounds;
+    },
+    locationStoreState() {
+      return this.locationStore.location;
     }
   },
   watch: {
@@ -60,7 +66,9 @@ export default {
             }
         );
       });
-      console.log(this.markerPositions);
+    },
+    locationStoreState: function () {
+      this.position = this.locationStore.location;
     },
   },
   created() {
