@@ -69,6 +69,9 @@ export default {
   computed: {
     selectedFunctionsStore() {
       return this.filterStore.selectedFunctionsState;
+    },
+    rangeInKmState() {
+      return this.filterStore.rangeInKm;
     }
   },
   watch: {
@@ -105,6 +108,9 @@ export default {
         this.error = 'Error! Could not reach the API. ' + error
       }
     },
+    rangeInKmState: function () {
+      console.log('range has changed');
+    }
   },
   created() {
     this.initPlaygrounds();

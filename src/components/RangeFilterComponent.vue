@@ -6,7 +6,7 @@
                  :min="1"
                  :max="15"
                  :tooltip="true"
-                 :tooltipText="`${rangeInKm} km`"
+                 :tooltipText="`%v km`"
     />
   </div>
 </template>
@@ -30,19 +30,19 @@ div.vue3-slider div.handle {
 
 <script>
 import slider from "vue3-slider"
-import {useLocationStore} from "@/stores/locationStore";
+import {useFilterStore} from "@/stores/filterStore";
 
-let locationStore;
+let filterStore;
 
 export default {
   components: {
     "vue3-slider": slider
   },
   setup() {
-    locationStore = useLocationStore();
+    filterStore = useFilterStore();
 
     return {
-      locationStore: locationStore,
+      filterStore: filterStore,
     }
   },
   data() {
@@ -50,23 +50,14 @@ export default {
       rangeInKm: 5,
       minRangeInKm: 1,
       maxRangeInKm: 15,
-      location: {}
     }
   },
   watch: {
-    location: function () {
-      locationStore.$patch({
-        location: this.location
+    rangeInKm: function () {
+      filterStore.$patch({
+        rangeInKm: this.rangeInKm
       });
     }
   },
-  methods: {
-    updateLocation($event) {
-      this.location = {
-        lat: $event?.geometry?.location.lat(),
-        lng: $event?.geometry?.location.lng(),
-      }
-    }
-  }
 }
 </script>
