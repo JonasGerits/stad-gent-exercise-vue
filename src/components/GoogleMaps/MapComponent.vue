@@ -2,8 +2,12 @@
   <GMapMap
       style="width: 100%; height: 100%"
       :center="position"
-      :zoom="15"
+      :zoom="zoom"
   >
+    <GMapCircle
+        :radius="rangeInKm * 1000"
+        :center="position"
+    />
     <GMapMarker
         :key="index"
         :position="m.position"
@@ -40,15 +44,20 @@ export default {
     return {
       errorStr: undefined,
       position: GENT_COORDINATES,
-      markerPositions: []
+      rangeInKm: 5,
+      markerPositions: [],
+      zoom: 12
     }
   },
   computed: {
     playgroundStoreState() {
       return this.playgroundStore.playgrounds;
     },
-    filterStoreState() {
+    locationState() {
       return this.filterStore.location;
+    },
+    rangeInKmState() {
+      return this.filterStore.rangeInKm;
     }
   },
   watch: {
@@ -72,8 +81,12 @@ export default {
         );
       });
     },
-    filterStoreState: function () {
+    locationState: function () {
       this.position = this.filterStore.location;
+    },
+    rangeInKmState: function () {
+      this.rangeInKm = this.filterStore.rangeInKm;
+      this.zoom = this.calculateZoom();
     },
   },
   created() {
@@ -87,5 +100,24 @@ export default {
       this.errorStr = err.message;
     });
   },
+  methods: {
+    calculateZoom() {
+      if(this.rangeInKm === 1) {
+        return 15;
+      }
+      if(this.rangeInKm <= 2) {
+        return 14;
+      }
+      if(this.rangeInKm <= 4) {
+        return 13;
+      }
+      if (this.rangeInKm <= 8) {
+        return 12;
+      }
+      if(this.rangeInKm <= 15) {
+        return 11;
+      }
+    }
+  }
 }
 </script>
