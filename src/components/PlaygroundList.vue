@@ -72,13 +72,16 @@ export default {
     },
     rangeInKmState() {
       return this.filterStore.rangeInKm;
+    },
+    locationState() {
+      return this.filterStore.location;
     }
   },
   watch: {
     page: async function () {
       this.loading = true;
       try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page));
+        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
         const jsonRes = await res.json();
         this.totalPlaygrounds = jsonRes.total_count;
         this.playgrounds = jsonRes.records;
@@ -95,7 +98,7 @@ export default {
       this.loading = true;
       this.page = 1;
       try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page));
+        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
         const jsonRes = await res.json();
         this.totalPlaygrounds = jsonRes.total_count;
         this.playgrounds = jsonRes.records;
@@ -108,8 +111,39 @@ export default {
         this.error = 'Error! Could not reach the API. ' + error
       }
     },
-    rangeInKmState: function () {
-      console.log('range has changed');
+    rangeInKmState: async function () {
+      this.loading = true;
+      this.page = 1;
+      try {
+        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
+        const jsonRes = await res.json();
+        this.totalPlaygrounds = jsonRes.total_count;
+        this.playgrounds = jsonRes.records;
+        playgroundStore.$patch({
+          playgrounds: this.playgrounds
+        });
+        this.loading = false;
+      } catch (error) {
+        this.loading = false;
+        this.error = 'Error! Could not reach the API. ' + error
+      }
+    },
+    locationState: async function () {
+      this.loading = true;
+      this.page = 1;
+      try {
+        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
+        const jsonRes = await res.json();
+        this.totalPlaygrounds = jsonRes.total_count;
+        this.playgrounds = jsonRes.records;
+        playgroundStore.$patch({
+          playgrounds: this.playgrounds
+        });
+        this.loading = false;
+      } catch (error) {
+        this.loading = false;
+        this.error = 'Error! Could not reach the API. ' + error
+      }
     }
   },
   created() {
@@ -119,7 +153,7 @@ export default {
     async initPlaygrounds() {
       this.loading = true;
       try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page));
+        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
         const jsonRes = await res.json();
         this.playgrounds = jsonRes.records;
         this.totalPlaygrounds = jsonRes.total_count;
