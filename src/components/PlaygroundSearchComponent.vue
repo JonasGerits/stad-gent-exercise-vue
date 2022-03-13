@@ -11,6 +11,11 @@
         :multipleLabel="getMultipleLabel"
     />
   </div>
+  <GMapAutocomplete
+      placeholder="Geef een adres in ... "
+      @place_changed="updateLocation"
+  >
+  </GMapAutocomplete>
 </template>
 
 <style>
@@ -55,6 +60,10 @@ export default {
     this.initPlaygroundFunctions();
   },
   methods: {
+    updateLocation($event) {
+      console.log('addresss changed', $event?.geometry?.location.lat());
+      console.log('addresss changed', $event?.geometry?.location.lng());
+    },
     getMultipleLabel() {
       return `${this.selectedFunctions.length} geselecteerde ${this.selectedFunctions.length > 1 ? 'functies' : 'functie'}`
     },

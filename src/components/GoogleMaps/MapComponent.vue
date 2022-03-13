@@ -1,22 +1,31 @@
 <template>
-  <GoogleMap
-      api-key="AIzaSyDa2fYoG3eOYOwbBr6My6Frxc6TpZU8AuE"
+  <GMapMap
       style="width: 100%; height: 100%"
       :center="position"
       :zoom="15"
   >
-    <Marker v-for="marker in markerPositions" :key="marker" :options="{ position: marker }" />
-  </GoogleMap>
+    <GMapMarker
+        :key="index"
+        :position="m.position"
+        v-for="(m, index) in markerPositions"
+    />
+  </GMapMap>
 </template>
+
+<style>
+div.vue-map-container {
+  height: 100%;
+  width: 100%;
+}
+</style>
 <script>
-import { GoogleMap, Marker } from 'vue3-google-map'
+
 import {usePlaygroundStore} from "@/stores/playgroundStore";
 
 const GENT_COORDINATES = { lat: 51.053581, lng: 3.722969 };
 let playgroundStore;
 
 export default {
-  components: { GoogleMap, Marker },
   setup() {
     playgroundStore = usePlaygroundStore();
 
@@ -44,11 +53,14 @@ export default {
 
         this.markerPositions.push(
             {
-              lng: coords.lon,
-              lat: coords.lat
+              position: {
+                lng: coords.lon,
+                lat: coords.lat
+              }
             }
         );
       });
+      console.log(this.markerPositions);
     },
   },
   created() {
