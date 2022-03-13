@@ -60,7 +60,7 @@ export default {
       this.position = { lat: pos.coords.latitude, lng: pos.coords.longitude};
     }, err => {
       this.errorStr = err.message;
-    })
+    });
   },
 }
 </script>
