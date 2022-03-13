@@ -17,16 +17,16 @@
 </style>
 
 <script>
-import {useLocationStore} from "@/stores/locationStore";
+import {useFilterStore} from "@/stores/filterStore";
 
-let locationStore;
+let filterStore;
 
 export default {
   setup() {
-    locationStore = useLocationStore();
+    filterStore = useFilterStore();
 
     return {
-      locationStore: locationStore,
+      filterStore: filterStore,
     }
   },
   data() {
@@ -36,7 +36,7 @@ export default {
   },
   watch: {
     location: function () {
-      locationStore.$patch({
+      filterStore.$patch({
         location: this.location
       });
     }

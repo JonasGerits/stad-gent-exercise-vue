@@ -20,20 +20,20 @@ div.vue-map-container {
 </style>
 <script>
 import {usePlaygroundStore} from "@/stores/playgroundStore";
-import {useLocationStore} from "@/stores/locationStore";
+import {useFilterStore} from "@/stores/filterStore";
 
 const GENT_COORDINATES = { lat: 51.053581, lng: 3.722969 };
 let playgroundStore;
-let locationStore;
+let filterStore;
 
 export default {
   setup() {
     playgroundStore = usePlaygroundStore();
-    locationStore = useLocationStore();
+    filterStore = useFilterStore();
 
     return {
       playgroundStore,
-      locationStore
+      filterStore: filterStore
     }
   },
   data() {
@@ -47,8 +47,8 @@ export default {
     playgroundStoreState() {
       return this.playgroundStore.playgrounds;
     },
-    locationStoreState() {
-      return this.locationStore.location;
+    filterStoreState() {
+      return this.filterStore.location;
     }
   },
   watch: {
@@ -67,8 +67,8 @@ export default {
         );
       });
     },
-    locationStoreState: function () {
-      this.position = this.locationStore.location;
+    filterStoreState: function () {
+      this.position = this.filterStore.location;
     },
   },
   created() {
