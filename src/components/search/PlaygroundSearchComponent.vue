@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full">
+  <div class="flex w-full mb-3">
     <div class="w-full md:w-80 mr-3">
       <LocationSearchComponent></LocationSearchComponent>
     </div>

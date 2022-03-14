@@ -1,7 +1,7 @@
 <template>
   <div class="m-6">
     <PlaygroundSearchComponent></PlaygroundSearchComponent>
-    <div class="flex border mt-6">
+    <div class="flex border my-3">
       <PlaygroundList></PlaygroundList>
       <div class="col-span-2 w-full">
         <MapComponent/>
