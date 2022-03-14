@@ -18,6 +18,7 @@ div.vue3-slider {
 
 div.vue3-slider div.tooltip {
   display: flex !important;
+  background-color: transparent;
 }
 
 div.vue3-slider div.handle {

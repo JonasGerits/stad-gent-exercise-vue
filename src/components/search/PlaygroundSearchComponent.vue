@@ -3,7 +3,7 @@
     <div class="w-full md:w-80 mr-3">
       <LocationSearchComponent></LocationSearchComponent>
     </div>
-    <div class="w-full md:w-80 mr-3">
+    <div class="w-full md:w-80 mx-3">
       <Multiselect
           v-model="selectedFunctions"
           :options="functions"
@@ -15,10 +15,10 @@
           :multipleLabel="getMultipleLabel"
       />
     </div>
-    <div class="w-full md:w-80 mr-3">
+    <div class="w-full md:w-80 mx-3">
       <RangeFilterComponent/>
     </div>
-    <div class="w-full md:w-80 flex">
+    <div class="w-full md:w-80 flex ml-3">
       <button class="p-3 bg-red-600 rounded text-white font-bold hover:bg-white hover:text-red-600 hover:border hover:border-red-600"
               v-on:click="resetFilters"
       >
