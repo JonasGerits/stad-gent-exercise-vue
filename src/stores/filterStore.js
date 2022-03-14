@@ -11,5 +11,11 @@ export const useFilterStore = defineStore("main", {
         }
     },
     getters: {},
-    actions: {}
+    actions: {
+        resetFilters() {
+            this.selectedFunctionsState = [];
+            this.location = GENT_COORDINATES;
+            this.rangeInKm = 5;
+        }
+    }
 });

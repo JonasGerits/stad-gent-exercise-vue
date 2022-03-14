@@ -58,13 +58,20 @@ export default {
     },
     rangeInKmState() {
       return this.filterStore.rangeInKm;
+    },
+    selectedPlaygroundState() {
+      return this.playgroundStore.selectedPlayground.id;
     }
   },
   watch: {
-    position: function () {
-      filterStore.$patch({
-        location: this.position
-      });
+    selectedPlaygroundState() {
+      if (this.playgroundStore.selectedPlayground.id) {
+        this.position = this.playgroundStore.selectedPlayground;
+        this.zoom = 18;
+      } else {
+        this.position = this.filterStore.location;
+        this.zoom = this.calculateZoom();
+      }
     },
     playgroundStoreState: function () {
       this.markerPositions = [];

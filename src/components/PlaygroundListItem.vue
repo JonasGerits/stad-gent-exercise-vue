@@ -60,17 +60,27 @@ export default {
   },
   methods: {
     selectPlayground(playground) {
-      const playgroundCoords = playground.fields.geo_point_2d;
-
-      playgroundStore.$patch({
-        selectedPlayground: {
-          ...{
-            id: playground.id,
-            lat: playgroundCoords.lat,
-            lng: playgroundCoords.lon
+      if (this.record.id === this.selectedPlaygroundId) {
+        playgroundStore.$patch({
+          selectedPlayground: {
+            ...{
+              id: undefined
+            }
           }
-        }
-      });
+        });
+      } else {
+        const playgroundCoords = playground.fields.geo_point_2d;
+
+        playgroundStore.$patch({
+          selectedPlayground: {
+            ...{
+              id: playground.id,
+              lat: playgroundCoords.lat,
+              lng: playgroundCoords.lon
+            }
+          }
+        });
+      }
     }
   }
 }
