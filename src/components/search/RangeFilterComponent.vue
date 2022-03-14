@@ -54,7 +54,15 @@ export default {
       maxRangeInKm: 15,
     }
   },
+  computed: {
+    rangeInKmState() {
+      return this.filterStore.rangeInKm;
+    }
+  },
   watch: {
+    rangeInKmState() {
+      this.rangeInKm = this.filterStore.rangeInKm;
+    },
     rangeInKm: function () {
       filterStore.$patch({
         rangeInKm: this.rangeInKm

@@ -64,6 +64,11 @@ export default {
     }
   },
   watch: {
+    position: function () {
+      filterStore.$patch({
+        location: this.position
+      });
+    },
     selectedPlaygroundState() {
       if (this.playgroundStore.selectedPlayground.id) {
         this.position = this.playgroundStore.selectedPlayground;

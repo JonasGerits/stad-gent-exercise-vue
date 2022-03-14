@@ -15,13 +15,23 @@
           :multipleLabel="getMultipleLabel"
       />
     </div>
-    <div class="w-full md:w-80">
+    <div class="w-full md:w-80 mr-3">
       <RangeFilterComponent/>
+    </div>
+    <div class="w-full md:w-80 flex">
+      <button class="p-3 bg-red-600 rounded text-white font-bold hover:bg-white hover:text-red-600 hover:border hover:border-red-600"
+              v-on:click="resetFilters"
+      >
+        Verwijder filters
+      </button>
     </div>
   </div>
 </template>
 
 <style>
+div.multiselect {
+  height: 100%;
+}
 div.multiselect-placeholder, div.multiselect-multiple-label {
   overflow: hidden;
   white-space: nowrap;
@@ -59,7 +69,15 @@ export default {
       maxRangeInKm: 15
     }
   },
+  computed: {
+    selectedFunctionsState() {
+      return this.filterStore.selectedFunctionsState;
+    }
+  },
   watch: {
+    selectedFunctionsState() {
+      this.selectedFunctions = this.filterStore.selectedFunctionsState;
+    },
     selectedFunctions: function () {
       filterStore.$patch({
         selectedFunctionsState: this.selectedFunctions
@@ -70,6 +88,9 @@ export default {
     this.initPlaygroundFunctions();
   },
   methods: {
+    resetFilters() {
+      this.filterStore.resetFilters();
+    },
     getMultipleLabel() {
       return `${this.selectedFunctions.length} geselecteerde ${this.selectedFunctions.length > 1 ? 'functies' : 'functie'}`
     },

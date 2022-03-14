@@ -34,7 +34,15 @@ export default {
       location: {}
     }
   },
+  computed: {
+    locationState() {
+      return this.filterStore.location;
+    }
+  },
   watch: {
+    locationState() {
+      this.location = this.filterStore.location;
+    },
     location: function () {
       filterStore.$patch({
         location: this.location
