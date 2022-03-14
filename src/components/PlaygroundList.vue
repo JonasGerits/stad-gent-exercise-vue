@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow min-w-fit">
+  <div class="shadow min-w-fit lg:min-w-96">
     <div class="p-3 flex font-bold text-xl shadow">
       <p>{{ totalPlaygrounds }} resultaten gevonden</p>
     </div>
@@ -7,7 +7,7 @@
       <PlaygroundListItem v-for="playground in playgrounds" :key="playground.record.id"
                           v-bind:record="playground.record"></PlaygroundListItem>
     </ul>
-    <div class="p-3 flex font-bold text-xl shadow w-full flex justify-center">
+    <div class="p-3 flex font-bold text-xl shadow w-full flex justify-center" :class="playgrounds.length < 1 ? 'invisible' : ''">
       <v-pagination
           v-model="page"
           :pages="Math.ceil(totalPlaygrounds / 10)"
@@ -20,7 +20,7 @@
 
 <style>
 ul.playground-list {
-  max-height: calc(100vh - 282px);
+  height: calc(100vh - 282px);
 }
 
 ul.Pagination button {
