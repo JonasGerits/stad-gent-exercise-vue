@@ -17,8 +17,8 @@ input.pac-target-input {
 </style>
 
 <script>
-import {useFilterStore} from "@/stores/filterStore";
-import {usePlaygroundStore} from "@/stores/playgroundStore";
+import {useFilterStore} from "@/stores/filter-store";
+import {usePlaygroundStore} from "@/stores/playground-store";
 
 let filterStore;
 let playgroundStore;

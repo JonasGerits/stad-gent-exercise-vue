@@ -21,8 +21,8 @@ button.Page-active {
 <script>
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-import {useFilterStore} from "@/stores/filterStore";
-import {usePlaygroundStore} from "@/stores/playgroundStore";
+import {useFilterStore} from "@/stores/filter-store";
+import {usePlaygroundStore} from "@/stores/playground-store";
 
 let playgroundStore;
 let filterStore;

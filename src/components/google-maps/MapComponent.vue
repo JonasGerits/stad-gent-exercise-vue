@@ -48,8 +48,8 @@ button.close-map {
 }
 </style>
 <script>
-import {usePlaygroundStore} from "@/stores/playgroundStore";
-import {useFilterStore} from "@/stores/filterStore";
+import {usePlaygroundStore} from "@/stores/playground-store";
+import {useFilterStore} from "@/stores/filter-store";
 import {useMobileViewStore} from "@/stores/mobile-view-store";
 
 const GENT_COORDINATES = {lat: 51.053581, lng: 3.722969};

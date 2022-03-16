@@ -42,8 +42,8 @@ button.open-list {
 import PlaygroundListItem from "@/components/PlaygroundListItem";
 import PlaygroundPagination from "@/components/PlaygroundPagination";
 import BootstrapIcon from '@dvuckovic/vue3-bootstrap-icons';
-import {useFilterStore} from "@/stores/filterStore";
-import {usePlaygroundStore} from "@/stores/playgroundStore";
+import {useFilterStore} from "@/stores/filter-store";
+import {usePlaygroundStore} from "@/stores/playground-store";
 import {useMobileViewStore} from "@/stores/mobile-view-store";
 
 let playgroundStore;

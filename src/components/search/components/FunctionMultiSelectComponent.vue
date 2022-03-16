@@ -22,8 +22,8 @@ div.multiselect-placeholder, div.multiselect-multiple-label {
 
 <script>
 import Multiselect from '@vueform/multiselect';
-import {useFilterStore} from "@/stores/filterStore";
-import {usePlaygroundStore} from "@/stores/playgroundStore";
+import {useFilterStore} from "@/stores/filter-store";
+import {usePlaygroundStore} from "@/stores/playground-store";
 import * as FunctionsService from "@/services/functions-service";
 
 let filterStore;

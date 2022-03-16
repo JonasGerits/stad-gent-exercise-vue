@@ -29,7 +29,7 @@ li:hover {
 </style>
 
 <script>
-import {usePlaygroundStore} from "@/stores/playgroundStore";
+import {usePlaygroundStore} from "@/stores/playground-store";
 
 let playgroundStore;
 
