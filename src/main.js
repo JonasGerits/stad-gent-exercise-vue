@@ -3,6 +3,7 @@ import App from './App.vue'
 import './index.css'
 import {createPinia} from "pinia";
 import VueGoogleMaps from '@fawmi/vue-google-maps'
+import BootstrapIcon from '@dvuckovic/vue3-bootstrap-icons';
 
 const app = createApp(App);
 
@@ -13,4 +14,5 @@ app.use(VueGoogleMaps, {
     },
 })
 app.use(createPinia());
+app.component('BootstrapIcon', BootstrapIcon);
 app.mount('#app');
