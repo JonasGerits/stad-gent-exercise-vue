@@ -8,20 +8,30 @@
 
 <script>
 import {useFilterStore} from "@/stores/filterStore";
+import {usePlaygroundStore} from "@/stores/playgroundStore";
 
 let filterStore;
+let playgroundStore;
 
 export default {
   setup() {
     filterStore = useFilterStore();
+    playgroundStore = usePlaygroundStore();
 
     return {
       filterStore,
+      playgroundStore,
     }
   },
   methods: {
-    resetFilters() {
+    async resetFilters() {
       this.filterStore.resetFilters();
+
+      await this.playgroundStore.updatePlaygrounds(
+          this.filterStore.selectedFunctions,
+          this.filterStore.page,
+          this.filterStore.location,
+          this.filterStore.rangeInKm);
     }
   }
 }

@@ -8,12 +8,7 @@
                           v-bind:record="playground.record"></PlaygroundListItem>
     </ul>
     <div class="p-3 flex font-bold text-xl shadow w-full flex justify-center" :class="playgrounds.length < 1 ? 'invisible' : ''">
-      <v-pagination
-          v-model="page"
-          :pages="Math.ceil(totalPlaygrounds / 10)"
-          :range-size="1"
-          active-color="#374151"
-      />
+      <PlaygroundPagination v-bind:total-playgrounds="totalPlaygrounds" />
     </div>
   </div>
 </template>
@@ -22,33 +17,21 @@
 ul.playground-list {
   height: calc(100vh - 282px);
 }
-
-ul.Pagination button {
-  font-size: 16px;
-}
-
-button.Page-active {
-  color: white;
-  font-weight: 900;
-}
 </style>
 
 <script>
 import PlaygroundListItem from "@/components/PlaygroundListItem";
-import VPagination from "@hennge/vue3-pagination";
-import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+import PlaygroundPagination from "@/components/PlaygroundPagination";
 import {useFilterStore} from "@/stores/filterStore";
 import {usePlaygroundStore} from "@/stores/playgroundStore";
-
-import * as PlaygroundQueryBuilderUtil from "@/utils/PlaygroundQueryBuilderUtil";
 
 let playgroundStore;
 let filterStore;
 
 export default {
   components: {
+    PlaygroundPagination,
     PlaygroundListItem,
-    VPagination
   },
   setup() {
     filterStore = useFilterStore();
@@ -63,57 +46,26 @@ export default {
     return {
       playgrounds: [],
       totalPlaygrounds: 0,
-      page: 1
     }
   },
   computed: {
-    selectedFunctionsState() {
-      return this.filterStore.selectedFunctions;
+    playgroundsState() {
+      return this.playgroundStore.playgrounds;
     },
-    rangeInKmState() {
-      return this.filterStore.rangeInKm;
-    },
-    locationState() {
-      return this.filterStore.location;
+    totalPlaygroundsState() {
+      return this.playgroundStore.totalPlaygrounds;
     }
   },
   watch: {
-    page: async function () {
-      await this.searchPlaygrounds();
+    playgroundsState: function () {
+      this.playgrounds = this.playgroundStore.playgrounds;
     },
-    selectedFunctionsState: async function () {
-      this.page = 1;
-
-      await this.searchPlaygrounds();
-    },
-    rangeInKmState: async function () {
-      this.page = 1;
-
-      await this.searchPlaygrounds();
-    },
-    locationState: async function () {
-      this.page = 1;
-
-      await this.searchPlaygrounds();
+    totalPlaygroundsState() {
+      this.totalPlaygrounds = this.playgroundStore.totalPlaygrounds;
     }
   },
   created() {
-    this.searchPlaygrounds();
+    this.playgroundStore.updatePlaygrounds(this.filterStore.selectedFunctions, this.page, this.filterStore.location, this.filterStore.rangeInKm);
   },
-  methods: {
-    async searchPlaygrounds() {
-      try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctions, this.page, this.filterStore.location, this.filterStore.rangeInKm));
-        const jsonRes = await res.json();
-        this.totalPlaygrounds = jsonRes.total_count;
-        this.playgrounds = jsonRes.records;
-        playgroundStore.$patch({
-          playgrounds: this.playgrounds
-        });
-      } catch(error) {
-
-      }
-    }
-  }
 }
 </script>

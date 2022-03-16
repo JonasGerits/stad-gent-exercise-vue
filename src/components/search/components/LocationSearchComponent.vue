@@ -18,15 +18,19 @@ input.pac-target-input {
 
 <script>
 import {useFilterStore} from "@/stores/filterStore";
+import {usePlaygroundStore} from "@/stores/playgroundStore";
 
 let filterStore;
+let playgroundStore;
 
 export default {
   setup() {
     filterStore = useFilterStore();
+    playgroundStore = usePlaygroundStore();
 
     return {
       filterStore: filterStore,
+      playgroundStore: playgroundStore,
     }
   },
   data() {
@@ -43,10 +47,16 @@ export default {
     locationState() {
       this.location = this.filterStore.location;
     },
-    location: function () {
+    location: async function () {
       filterStore.$patch({
         location: this.location
       });
+
+      await this.playgroundStore.updatePlaygrounds(
+          this.filterStore.selectedFunctions,
+          this.filterStore.page,
+          this.filterStore.location,
+          this.filterStore.rangeInKm);
     }
   },
   methods: {

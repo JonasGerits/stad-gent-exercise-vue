@@ -2,7 +2,6 @@
   <Multiselect
       v-model="selectedFunctions"
       :options="functions"
-      loading="loading"
       :searchable="true"
       mode="multiple"
       placeholder="Kies een functie..."
@@ -24,8 +23,10 @@ div.multiselect-placeholder, div.multiselect-multiple-label {
 <script>
 import Multiselect from '@vueform/multiselect';
 import {useFilterStore} from "@/stores/filterStore";
+import {usePlaygroundStore} from "@/stores/playgroundStore";
 
 let filterStore;
+let playgroundStore;
 
 export default {
   components: {
@@ -33,9 +34,11 @@ export default {
   },
   setup() {
     filterStore = useFilterStore();
+    playgroundStore = usePlaygroundStore();
 
     return {
       filterStore,
+      playgroundStore
     }
   },
   data() {
@@ -54,10 +57,16 @@ export default {
     selectedFunctionsState() {
       this.selectedFunctions = this.filterStore.selectedFunctions;
     },
-    selectedFunctions: function () {
+    selectedFunctions: async function () {
       filterStore.$patch({
         selectedFunctions: this.selectedFunctions
       });
+
+      await this.playgroundStore.updatePlaygrounds(
+          this.filterStore.selectedFunctions,
+          this.filterStore.page,
+          this.filterStore.location,
+          this.filterStore.rangeInKm);
     }
   },
   created() {

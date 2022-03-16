@@ -34,8 +34,10 @@ div.vue3-slider div.handle {
 <script>
 import slider from "vue3-slider"
 import {useFilterStore} from "@/stores/filterStore";
+import {usePlaygroundStore} from "@/stores/playgroundStore";
 
 let filterStore;
+let playgroundStore;
 
 export default {
   components: {
@@ -43,9 +45,11 @@ export default {
   },
   setup() {
     filterStore = useFilterStore();
+    playgroundStore = usePlaygroundStore();
 
     return {
       filterStore: filterStore,
+      playgroundStore: playgroundStore,
     }
   },
   data() {
@@ -64,10 +68,16 @@ export default {
     rangeInKmState() {
       this.rangeInKm = this.filterStore.rangeInKm;
     },
-    rangeInKm: function () {
+    rangeInKm: async function () {
       filterStore.$patch({
         rangeInKm: this.rangeInKm
       });
+
+      await this.playgroundStore.updatePlaygrounds(
+          this.filterStore.selectedFunctions,
+          this.filterStore.page,
+          this.filterStore.location,
+          this.filterStore.rangeInKm);
     }
   },
 }
