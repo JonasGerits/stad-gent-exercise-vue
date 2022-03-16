@@ -1,19 +1,31 @@
 <template>
-  <GMapMap
-      style="width: 100%; height: 100%"
-      :center="position"
-      :zoom="zoom"
-  >
-    <GMapCircle
-        :radius="rangeInKm * 1000"
-        :center="position"
-    />
-    <GMapMarker
-        :key="index"
-        :position="m.position"
-        v-for="(m, index) in markerPositions"
-    />
-  </GMapMap>
+  <div class="flex w-full h-full mb-3 md:flex" :class="playgroundsOpened ? 'hidden' : 'flex'">
+    <div class="close-map-wrapper">
+      <button v-on:click="togglePlaygrounds()" class="w-full h-full md:hidden open-results text-white px-2">
+        <BootstrapIcon
+            icon="arrow-right"
+            size="2x"
+        />
+      </button>
+    </div>
+    <div class="w-full h-full">
+      <GMapMap
+          style="width: 100%; height: 100%"
+          :center="position"
+          :zoom="zoom"
+      >
+        <GMapCircle
+            :radius="rangeInKm * 1000"
+            :center="position"
+        />
+        <GMapMarker
+            :key="index"
+            :position="m.position"
+            v-for="(m, index) in markerPositions"
+        />
+      </GMapMap>
+    </div>
+  </div>
 </template>
 
 <style>
@@ -21,23 +33,40 @@ div.vue-map-container {
   height: 100%;
   width: 100%;
 }
+
+button.open-results {
+  background-color: #374151;
+}
+
+
+div.close-map-wrapper {
+  background-color: #374151;
+}
+
+button.close-map {
+  color: white;
+}
 </style>
 <script>
 import {usePlaygroundStore} from "@/stores/playgroundStore";
 import {useFilterStore} from "@/stores/filterStore";
+import {useMobileViewStore} from "@/stores/mobile-view-store";
 
 const GENT_COORDINATES = {lat: 51.053581, lng: 3.722969};
 let playgroundStore;
 let filterStore;
+let mobileViewStore;
 
 export default {
   setup() {
     playgroundStore = usePlaygroundStore();
     filterStore = useFilterStore();
+    mobileViewStore = useMobileViewStore();
 
     return {
       playgroundStore,
-      filterStore: filterStore
+      filterStore,
+      mobileViewStore
     }
   },
   data() {
@@ -47,7 +76,8 @@ export default {
       position: GENT_COORDINATES,
       rangeInKm: 5,
       markerPositions: [],
-      zoom: 12
+      zoom: 12,
+      playgroundsOpened: true
     }
   },
   computed: {
@@ -62,15 +92,21 @@ export default {
     },
     selectedPlaygroundState() {
       return this.playgroundStore.selectedPlayground.id;
+    },
+    playgroundsOpenedState() {
+      return this.mobileViewStore.playgroundsOpened;
     }
   },
   watch: {
+    playgroundsOpenedState: function() {
+      this.playgroundsOpened = this.mobileViewStore.playgroundsOpened;
+    },
     gpsLocation: function () {
       filterStore.$patch({
         location: this.gpsLocation
       });
     },
-    selectedPlaygroundState() {
+    selectedPlaygroundState: function(){
       if (this.playgroundStore.selectedPlayground.id) {
         this.position = this.playgroundStore.selectedPlayground;
         this.zoom = 18;
@@ -114,6 +150,9 @@ export default {
     });
   },
   methods: {
+    togglePlaygrounds() {
+      this.mobileViewStore.togglePlaygroundsOpened();
+    },
     calculateZoom() {
       if (this.rangeInKm === 1) {
         return 15;

@@ -78,9 +78,7 @@ export default {
   },
   methods: {
     toggleMobileFilter() {
-      console.log('toggling from:', this.mobileFilterOpened);
       this.mobileFilterOpened = !this.mobileFilterOpened;
-      console.log('toggling to:', this.mobileFilterOpened);
     }
   }
 }
