@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       errorStr: undefined,
+      gpsLocation: undefined,
       position: GENT_COORDINATES,
       rangeInKm: 5,
       markerPositions: [],
@@ -64,9 +65,9 @@ export default {
     }
   },
   watch: {
-    position: function () {
+    gpsLocation: function () {
       filterStore.$patch({
-        location: this.position
+        location: this.gpsLocation
       });
     },
     selectedPlaygroundState() {
@@ -107,7 +108,7 @@ export default {
       return;
     }
     navigator.geolocation.getCurrentPosition(pos => {
-      this.position = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+      this.gpsLocation = {lat: pos.coords.latitude, lng: pos.coords.longitude};
     }, err => {
       this.errorStr = err.message;
     });

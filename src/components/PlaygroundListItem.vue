@@ -23,6 +23,9 @@
 li.active {
   background-color: #dee2e6;
 }
+li:hover {
+  background-color: #dee2e6;
+}
 </style>
 
 <script>
