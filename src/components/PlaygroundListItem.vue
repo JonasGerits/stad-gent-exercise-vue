@@ -2,8 +2,8 @@
   <li class="overflow-hidden border-b-2 min-w-fit cursor-pointer"
       :class="record.id === selectedPlaygroundId ? 'active' :''" v-on:click="selectPlayground(record)">
     <div class="flex gap-4 p-3">
-      <div class="md:w-32 lg:w-48 flex items-center hidden md:block">
-        <div class="w-full md:h-32 lg:h-40 h-40">
+      <div class="lg:w-48 flex items-center hidden lg:block">
+        <div class="w-full lg:h-40 h-40">
           <img src="../assets/playground-stock-photo.png" class="w-full h-full object-cover rounded-lg">
         </div>
       </div>

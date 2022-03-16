@@ -1,15 +1,15 @@
 <template>
   <div class="flex w-full mb-3">
-    <div class="w-full md:w-80 mr-3">
+    <div class="w-full lg:w-80 mr-3">
       <LocationSearchComponent></LocationSearchComponent>
     </div>
-    <div class="w-full md:w-80 mx-3">
+    <div class="w-full lg:w-80 mx-3">
       <FunctionMultiSelectComponent />
     </div>
-    <div class="w-full md:w-80 mx-3">
+    <div class="w-full lg:w-80 mx-3">
       <RangeFilterComponent/>
     </div>
-    <div class="w-full md:w-80 flex ml-3">
+    <div class="w-full lg:w-80 flex ml-3">
      <ResetFilterButtonComponent />
     </div>
   </div>
