@@ -1,6 +1,6 @@
 <template>
   <div class="m-6">
-    <PlaygroundSearchComponent></PlaygroundSearchComponent>
+    <SearchWrapperComponent></SearchWrapperComponent>
     <div class="flex border my-3">
       <PlaygroundList></PlaygroundList>
       <div class="col-span-2 w-full">
@@ -11,18 +11,18 @@
 </template>
 
 <script>
-import PlaygroundSearchComponent from "@/components/search/PlaygroundSearchComponent";
 import {useFilterStore} from "@/stores/filterStore";
 import PlaygroundList from "@/components/PlaygroundList";
-import MapComponent from "@/components/GoogleMaps/MapComponent";
+import MapComponent from "@/components/google-maps/MapComponent";
+import SearchWrapperComponent from "@/components/search/SearchWrapperComponent";
 
 let filterStore;
 
 export default {
   components: {
+    SearchWrapperComponent,
     MapComponent,
     PlaygroundList,
-    PlaygroundSearchComponent,
   },
   setup() {
     filterStore = useFilterStore();
