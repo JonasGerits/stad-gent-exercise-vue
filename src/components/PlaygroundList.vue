@@ -67,8 +67,8 @@ export default {
     }
   },
   computed: {
-    selectedFunctionsStore() {
-      return this.filterStore.selectedFunctionsState;
+    selectedFunctionsState() {
+      return this.filterStore.selectedFunctions;
     },
     rangeInKmState() {
       return this.filterStore.rangeInKm;
@@ -81,7 +81,7 @@ export default {
     page: async function () {
       await this.searchPlaygrounds();
     },
-    selectedFunctionsStore: async function () {
+    selectedFunctionsState: async function () {
       this.page = 1;
 
       await this.searchPlaygrounds();
@@ -103,7 +103,7 @@ export default {
   methods: {
     async searchPlaygrounds() {
       try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
+        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctions, this.page, this.filterStore.location, this.filterStore.rangeInKm));
         const jsonRes = await res.json();
         this.totalPlaygrounds = jsonRes.total_count;
         this.playgrounds = jsonRes.records;

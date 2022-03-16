@@ -47,16 +47,16 @@ export default {
   },
   computed: {
     selectedFunctionsState() {
-      return this.filterStore.selectedFunctionsState;
+      return this.filterStore.selectedFunctions;
     }
   },
   watch: {
     selectedFunctionsState() {
-      this.selectedFunctions = this.filterStore.selectedFunctionsState;
+      this.selectedFunctions = this.filterStore.selectedFunctions;
     },
     selectedFunctions: function () {
       filterStore.$patch({
-        selectedFunctionsState: this.selectedFunctions
+        selectedFunctions: this.selectedFunctions
       });
     }
   },
