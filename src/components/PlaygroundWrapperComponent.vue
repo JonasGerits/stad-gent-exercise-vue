@@ -11,61 +11,15 @@
 </template>
 
 <script>
-import {useFilterStore} from "@/stores/filterStore";
 import PlaygroundList from "@/components/PlaygroundList";
 import MapComponent from "@/components/google-maps/MapComponent";
 import SearchWrapperComponent from "@/components/search/SearchWrapperComponent";
-
-let filterStore;
 
 export default {
   components: {
     SearchWrapperComponent,
     MapComponent,
     PlaygroundList,
-  },
-  setup() {
-    filterStore = useFilterStore();
-
-    return {
-      filterStore,
-    }
-  },
-  data() {
-    return {
-      functions: [],
-      loading: false
-    }
-  },
-  computed: {
-    selectedFunctionsStore() {
-      return this.filterStore.selectedFunctionsState;
-    }
-  },
-  watch: {},
-  created() {
-    this.initPlaygroundFunctions();
-  },
-  methods: {
-    async initPlaygroundFunctions() {
-      const res = await fetch('https://data.stad.gent/api/v2/catalog/datasets/speelterreinen-gent/aggregates?select=&group_by=functies');
-      await res.json().then(response => {
-        let uniqueFunctions = [];
-        response.aggregations.map(aggregation => {
-          let aggregationFunctions = aggregation.functies.split(',');
-
-          aggregationFunctions.map(playgroundFuntion => {
-            let trimmedPlaygroundFunction = playgroundFuntion.trim();
-
-            if (!uniqueFunctions.includes(trimmedPlaygroundFunction)) {
-              uniqueFunctions.push(trimmedPlaygroundFunction);
-            }
-          });
-        });
-
-        this.functions = uniqueFunctions;
-      });
-    }
   }
 }
 </script>

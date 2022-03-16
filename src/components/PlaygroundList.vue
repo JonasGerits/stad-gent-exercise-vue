@@ -63,7 +63,6 @@ export default {
     return {
       playgrounds: [],
       totalPlaygrounds: 0,
-      loading: false,
       page: 1
     }
   },
@@ -80,93 +79,41 @@ export default {
   },
   watch: {
     page: async function () {
-      this.loading = true;
-      try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
-        const jsonRes = await res.json();
-        this.totalPlaygrounds = jsonRes.total_count;
-        this.playgrounds = jsonRes.records;
-        playgroundStore.$patch({
-          playgrounds: this.playgrounds
-        });
-        this.loading = false;
-      } catch (error) {
-        this.loading = false;
-        this.error = 'Error! Could not reach the API. ' + error
-      }
+      await this.searchPlaygrounds();
     },
     selectedFunctionsStore: async function () {
-      this.loading = true;
       this.page = 1;
-      try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
-        const jsonRes = await res.json();
-        this.totalPlaygrounds = jsonRes.total_count;
-        this.playgrounds = jsonRes.records;
-        playgroundStore.$patch({
-          playgrounds: this.playgrounds
-        });
-        this.loading = false;
-      } catch (error) {
-        this.loading = false;
-        this.error = 'Error! Could not reach the API. ' + error
-      }
+
+      await this.searchPlaygrounds();
     },
     rangeInKmState: async function () {
-      this.loading = true;
       this.page = 1;
-      try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
-        const jsonRes = await res.json();
-        this.totalPlaygrounds = jsonRes.total_count;
-        this.playgrounds = jsonRes.records;
-        playgroundStore.$patch({
-          playgrounds: this.playgrounds
-        });
-        this.loading = false;
-      } catch (error) {
-        this.loading = false;
-        this.error = 'Error! Could not reach the API. ' + error
-      }
+
+      await this.searchPlaygrounds();
     },
     locationState: async function () {
-      this.loading = true;
       this.page = 1;
-      try {
-        const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
-        const jsonRes = await res.json();
-        this.totalPlaygrounds = jsonRes.total_count;
-        this.playgrounds = jsonRes.records;
-        playgroundStore.$patch({
-          playgrounds: this.playgrounds
-        });
-        this.loading = false;
-      } catch (error) {
-        this.loading = false;
-        this.error = 'Error! Could not reach the API. ' + error
-      }
+
+      await this.searchPlaygrounds();
     }
   },
   created() {
-    this.initPlaygrounds();
+    this.searchPlaygrounds();
   },
   methods: {
-    async initPlaygrounds() {
-      this.loading = true;
+    async searchPlaygrounds() {
       try {
         const res = await fetch(PlaygroundQueryBuilderUtil.getQuery(this.filterStore.selectedFunctionsState, this.page, this.filterStore.location, this.filterStore.rangeInKm));
         const jsonRes = await res.json();
-        this.playgrounds = jsonRes.records;
         this.totalPlaygrounds = jsonRes.total_count;
+        this.playgrounds = jsonRes.records;
         playgroundStore.$patch({
           playgrounds: this.playgrounds
         });
-        this.loading = false;
-      } catch (error) {
-        this.loading = false;
-        this.error = 'Error! Could not reach the API. ' + error
+      } catch(error) {
+
       }
-    },
+    }
   }
 }
 </script>

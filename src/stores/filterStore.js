@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 
 const GENT_COORDINATES = {lat: 51.053581, lng: 3.722969};
 
-export const useFilterStore = defineStore("main", {
+export const useFilterStore = defineStore("filters", {
     state: () => {
         return {
             selectedFunctionsState: [],
